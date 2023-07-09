@@ -5,9 +5,9 @@ use std::iter::repeat_with;
 type Solution<T> = Vec<T>;
 
 pub struct Particle<T> {
-    position: Vec<T>,
-    velocity: Vec<T>,
-    best_known_position: Vec<T>,
+    pub position: Vec<T>,
+    pub velocity: Vec<T>,
+    pub best_known_position: Vec<T>,
 }
 
 impl<T> Particle<T> {
@@ -34,12 +34,12 @@ pub struct PsOpt<T, F> {
 
 #[derive(Debug, Copy, Clone)]
 pub struct PsoConfig {
-    pop_size: usize,
-    omega: f32, // w
-    phi_g: f32,
-    phi_p: f32,
-    learning_rate: f32, // lr
-    iteration: usize,
+    pub pop_size: usize,
+    pub omega: f32, // w
+    pub phi_g: f32,
+    pub phi_p: f32,
+    pub learning_rate: f32, // lr
+    pub iteration: usize,
 }
 
 impl<T> Swarm<T> {
@@ -87,7 +87,7 @@ where
 {
     pub fn init<R: Fn() -> Particle<T>>(config: PsoConfig, fitness: F, randness: R) -> Self
     where
-        F: Fn(&Particle<T>) -> O,
+        F: Fn(&Solution<T>) -> O,
         O: Into<f64>,
     {
         let swarm = Swarm::initial_random_pop(config.pop_size, randness);
